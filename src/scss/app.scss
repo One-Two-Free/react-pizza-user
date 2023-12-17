@@ -24,9 +24,11 @@ body {
   }
 
   &__items {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 1fr;
+    grid-column-gap: 20px;
+    grid-row-gap: 20px;
   }
 
   &__top {
@@ -50,6 +52,9 @@ body {
 }
 
 .cart {
+  .content__items {
+    display: block;
+  }
   &__top {
     display: flex;
     justify-content: space-between;
