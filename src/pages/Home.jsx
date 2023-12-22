@@ -1,16 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import PizzaBlock from '../components/PizzaBlock';
 import Skeleton from '../components/PizzaBlock/Skeleton';
 import Categories from '../components/Categories';
 import Sort from '../components/Sort';
 import Pagination from '../components/Pagination';
+import { SearchContext } from '../App';
 
-const Home = ({ searchValue }) => {
+const Home = () => {
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [categoryId, setCategoryId] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [sortType, setSortType] = useState({ name: 'популярности (DESC)', sortProperty: 'rating' });
+  const { searchValue } = useContext(SearchContext);
 
   useEffect(() => {
     setIsLoading(true);
@@ -29,6 +31,8 @@ const Home = ({ searchValue }) => {
       });
   }, [categoryId, sortType, searchValue, currentPage]);
 
+  console.log('Home');
+
   const pizzas = items.map((item, i) => (
     <PizzaBlock
       key={item.id}
@@ -39,6 +43,10 @@ const Home = ({ searchValue }) => {
       types={item.types}
     />
   ));
+
+  if (isLoading) {
+    console.log('Skeleton');
+  } else console.log('pizzas');
 
   return (
     <div className="container">
