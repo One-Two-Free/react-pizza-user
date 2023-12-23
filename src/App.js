@@ -7,11 +7,13 @@ import NotFound from './pages/NotFound';
 import Home from './pages/Home';
 import Cart from './pages/Cart';
 import './scss/app.scss';
+import { useSelector } from 'react-redux';
 
 export const SearchContext = React.createContext('');
 
 function App() {
   const [searchValue, setSearchValue] = useState('');
+  const filter = useSelector((state) => state.filter.value);
   return (
     <div className="wrapper">
       <SearchContext.Provider value={{ searchValue, setSearchValue }}>
