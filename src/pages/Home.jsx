@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import axios from 'axios';
 
 import PizzaBlock from '../components/PizzaBlock';
 import Skeleton from '../components/PizzaBlock/Skeleton';
@@ -12,7 +13,7 @@ import { setCategoryId } from '../redux/slices/filterSlice';
 const Home = () => {
   const dispatch = useDispatch();
   const { categoryId, sort } = useSelector((state) => state.filter);
- 
+
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
@@ -29,12 +30,12 @@ const Home = () => {
     const order = '&order=' + (sort.sortProperty.includes('-') ? 'asc' : 'desc');
     const search = searchValue ? `&search=${searchValue}` : '';
 
-    fetch(
-      `https://657c7834853beeefdb9981d8.mockapi.io/items?page=${currentPage}&limit=4${category}${sortBy}${order}${search}`,
-    )
-      .then((res) => res.json())
-      .then((jsonData) => {
-        setItems(jsonData);
+    axios
+      .get(
+        `https://657c7834853beeefdb9981d8.mockapi.io/items?page=${currentPage}&limit=4${category}${sortBy}${order}${search}`,
+      )
+      .then((res) => {
+        setItems(res.data);
         setIsLoading(false);
       });
   }, [categoryId, sort, searchValue, currentPage]);
