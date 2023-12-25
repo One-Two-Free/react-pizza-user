@@ -28,15 +28,6 @@ const Search = () => {
     updateSearchValue(event.target.value);
   };
 
-  // const onChangeInput = useCallback(
-  //   debounce((event) => {
-  //     console.log('event =', event);
-  //     console.log('event value =', event.target.value);
-
-  //     setSearchValue(event.target.value);
-  //   }, 1000),
-  // );
-
   return (
     <div className={styles.root}>
       <input ref={inputRef} value={value} placeholder="Search for pizza" onChange={onChangeInput} />

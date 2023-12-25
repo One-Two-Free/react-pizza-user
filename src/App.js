@@ -12,6 +12,7 @@ import { useSelector } from 'react-redux';
 export const SearchContext = React.createContext('');
 
 function App() {
+  console.log('app.js---------------------------');
   const [searchValue, setSearchValue] = useState('');
   const filter = useSelector((state) => state.filter.value);
   return (
