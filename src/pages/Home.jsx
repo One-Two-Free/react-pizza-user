@@ -8,7 +8,6 @@ import Skeleton from '../components/PizzaBlock/Skeleton';
 import Categories from '../components/Categories';
 import Sort, { sortList } from '../components/Sort';
 import Pagination from '../components/Pagination';
-import { SearchContext } from '../App';
 import { setCategoryId, setCurrentPage, setFilters } from '../redux/slices/filterSlice';
 import { fetchPizzas } from '../redux/slices/pizzaSlice';
 
@@ -23,9 +22,7 @@ const Home = () => {
   const isMounted = useRef(false);
 
   const { items, status } = useSelector((state) => state.pizza);
-  const { categoryId, sort, currentPage } = useSelector((state) => state.filter);
-
-  const { searchValue } = useContext(SearchContext);
+  const { categoryId, sort, currentPage, searchValue } = useSelector((state) => state.filter);
 
   const onChangeCategory = (id) => {
     dispatch(setCategoryId(id));

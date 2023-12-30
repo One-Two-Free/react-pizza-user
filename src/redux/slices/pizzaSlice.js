@@ -1,11 +1,12 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-export const fetchPizzas = createAsyncThunk('pizza/fetchPizzasStatus', async (params) => {
+export const fetchPizzas = createAsyncThunk('pizza/fetchPizzasStatus', async (params, thunkAPI) => {
   const { category, sortBy, order, search, currentPage } = params;
   const { data } = await axios.get(
     `https://657c7834853beeefdb9981d8.mockapi.io/items?page=${currentPage}&limit=4${category}${sortBy}${order}${search}`,
   );
+  // console.log('thunapi ', thunkAPI);
   return data;
 });
 
@@ -22,11 +23,6 @@ export const pizzaSlice = createSlice({
       state.items = action.payload;
     },
   },
-  // extraReducers: {
-  //   [fetchPizzas.fulfilled]: (state, action) => {
-  //     console.log(state);
-  //   },
-  // },
   extraReducers: (builder) => {
     builder
       .addCase(fetchPizzas.pending, (state) => {
