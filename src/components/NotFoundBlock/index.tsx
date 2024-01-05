@@ -1,5 +1,5 @@
 import styles from './NotFoundBlock.module.scss';
-const NotFoundBlock = () => {
+const NotFoundBlock: React.FC = () => {
   return (
     <h1 className={styles.root}>
       <span className={styles.newClass}>sorry </span>ничего не наидено

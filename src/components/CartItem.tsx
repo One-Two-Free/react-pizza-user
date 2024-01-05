@@ -1,12 +1,31 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { addItem, minusItem, removeItem } from '../redux/slices/cartSlice';
+import { CartItem, addItem, minusItem, removeItem } from '../redux/slices/cartSlice';
+import clsx from 'clsx';
 
-const CartItem = ({ id, title, price, size, type, count, imageUrl }) => {
+type CartItemProps = {
+  id: string;
+  title: string;
+  price: number;
+  size: number;
+  type: string;
+  count: number;
+  imageUrl: string;
+};
+
+const CartItemBlock: React.FC<CartItemProps> = ({
+  id,
+  title,
+  price,
+  size,
+  type,
+  count,
+  imageUrl,
+}) => {
   const dispatch = useDispatch();
 
-  const onClickPlus = () => dispatch(addItem({ id }));
-  const onClickMinus = () => dispatch(minusItem({ id }));
+  const onClickPlus = () => dispatch(addItem({ id } as CartItem));
+  const onClickMinus = () => dispatch(minusItem(id));
   const onClickRemove = () => {
     if (window.confirm('Are you sure you want to remove')) dispatch(removeItem(id));
   };
@@ -22,9 +41,12 @@ const CartItem = ({ id, title, price, size, type, count, imageUrl }) => {
         </p>
       </div>
       <div className="cart__item-count">
-        <div
+        <button
+          disabled={count === 1}
           onClick={onClickMinus}
-          className="button button--outline button--circle cart__item-count-minus"
+          className={clsx('button button--outline button--circle cart__item-count-minus', {
+            'button-disable': count === 1,
+          })}
         >
           <svg
             width="10"
@@ -42,9 +64,9 @@ const CartItem = ({ id, title, price, size, type, count, imageUrl }) => {
               fill="#EB5A1E"
             ></path>
           </svg>
-        </div>
+        </button>
         <b>{count}</b>
-        <div
+        <button
           onClick={onClickPlus}
           className="button button--outline button--circle cart__item-count-plus"
         >
@@ -64,7 +86,7 @@ const CartItem = ({ id, title, price, size, type, count, imageUrl }) => {
               fill="#EB5A1E"
             ></path>
           </svg>
-        </div>
+        </button>
       </div>
       <div className="cart__item-price">
         <b>{price * count} ₽</b>
@@ -93,4 +115,4 @@ const CartItem = ({ id, title, price, size, type, count, imageUrl }) => {
   );
 };
 
-export default CartItem;
+export default CartItemBlock;
