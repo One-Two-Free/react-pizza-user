@@ -1,8 +1,8 @@
-import { memo, useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { memo, useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import { Sort, SortPropertyEnum, setSort } from '../redux/slices/filterSlice';
-import { RootState } from '../redux/store';
+import { SortPropertyEnum, setSort } from "../redux/slices/filterSlice";
+import { RootState } from "../redux/store";
 
 type SortItem = {
   name: string;
@@ -10,12 +10,12 @@ type SortItem = {
 };
 
 export const sortList: SortItem[] = [
-  { name: 'популярности (DESC)', sortProperty: SortPropertyEnum.RATING_DESC },
-  { name: 'популярности (ASC)', sortProperty: SortPropertyEnum.PRICE_ASC },
-  { name: 'цене (DESC)', sortProperty: SortPropertyEnum.PRICE_DESC },
-  { name: 'цене (ASC)', sortProperty: SortPropertyEnum.PRICE_DESC },
-  { name: 'алфавиту (DESC)', sortProperty: SortPropertyEnum.TITLE_DESC },
-  { name: 'алфавиту (ASC)', sortProperty: SortPropertyEnum.TITLE_ASC },
+  { name: "популярности (DESC)", sortProperty: SortPropertyEnum.RATING_DESC },
+  { name: "популярности (ASC)", sortProperty: SortPropertyEnum.PRICE_ASC },
+  { name: "цене (DESC)", sortProperty: SortPropertyEnum.PRICE_DESC },
+  { name: "цене (ASC)", sortProperty: SortPropertyEnum.PRICE_DESC },
+  { name: "алфавиту (DESC)", sortProperty: SortPropertyEnum.TITLE_DESC },
+  { name: "алфавиту (ASC)", sortProperty: SortPropertyEnum.TITLE_ASC },
 ];
 
 const SortPopup = memo(() => {
@@ -28,11 +28,12 @@ const SortPopup = memo(() => {
     const handelClickOutSide = (event: MouseEvent) => {
       if (sortRef.current && !event.composedPath().includes(sortRef.current)) {
         setOpen(false);
+        console.log("handelClickOutSide", "open = ", open);
       }
     };
-    document.body.addEventListener('click', handelClickOutSide);
+    document.body.addEventListener("click", handelClickOutSide);
     return () => {
-      document.body.removeEventListener('click', handelClickOutSide);
+      document.body.removeEventListener("click", handelClickOutSide);
     };
   }, []);
 
@@ -64,7 +65,9 @@ const SortPopup = memo(() => {
           <ul>
             {sortList.map((obj, i) => (
               <li
-                className={sort.sortProperty === obj.sortProperty ? 'active' : ''}
+                className={
+                  sort.sortProperty === obj.sortProperty ? "active" : ""
+                }
                 key={i}
                 onClick={() => onClickListItem(obj)}
               >
